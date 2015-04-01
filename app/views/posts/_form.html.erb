@@ -6,6 +6,10 @@
   </ul>
 <% end %>
 
+<%# Rails figures our the proper path and method from the @post %>
+<%# persisted means saved to database (i.e. has an id)     %>
+<%# @post is not persisted --> POST    /posts     %>
+<%# @post is persisted     --> PATCH   /posts/:id %>
 <%= form_for @post do |f| %>
   <%= f.label :title %>
   <%= f.text_field :title %>

@@ -11,6 +11,13 @@ class CommentsController < ApplicationController
     end
   end
 
+  def destroy
+    # @discussion = Discussion.find params[:discussion_id]
+    @comment = Comment.find params[:id]
+    @comment.destroy
+    redirect_to post_discussion_path(@comment.post, @comment.discussion)
+  end
+
   private
 
   def comment_params

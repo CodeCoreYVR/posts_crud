@@ -1,8 +1,16 @@
 <h1>Discussion: <%= @discussion.title %></h1>
 <p><%= @discussion.body %></p>
 
+<% if @comment.errors.any? %>
+  <ul>
+    <% @comment.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
 
-<%= form_for @comment, url: discussion_comments_path(@discussion) do |f| %>
+<%#= form_for @comment, url: discussion_comments_path(@discussion) do |f| %>
+<%= form_for [@discussion, @comment] do |f| %>
   <%= f.text_area :body, placeholder: "Put your comment here" %>
   <br>
   <%= f.submit %>
@@ -11,5 +19,6 @@
 <h2>Comments</h2>
 <% @discussion.comments.each do |comment| %>
   <%= comment.body %>
+  <%= button_to "Delete", discussion_comment_path(@discussion, comment), method: :delete, data: {confirm: "Are you sure?"} %>
   <hr>
 <% end %>
