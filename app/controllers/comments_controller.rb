@@ -4,10 +4,14 @@ class CommentsController < ApplicationController
     @discussion = Discussion.find params[:discussion_id]
     @comment = Comment.new comment_params
     @comment.discussion = @discussion
-    if @comment.save
-      redirect_to post_discussion_path(@discussion.post, @discussion)
-    else
-      render "discussions/show"
+    respond_to do |format|
+      if @comment.save
+        format.html { redirect_to post_discussion_path(@discussion.post, @discussion) }
+        format.js   { render :create_success }
+      else
+        format.html { render "discussions/show" }
+        format.js   { render :create_failure }
+      end
     end
   end
 
