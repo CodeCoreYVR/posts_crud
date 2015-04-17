@@ -1,3 +1,5 @@
-<%= comment.body %>
-<%= button_to "Delete", discussion_comment_path(@discussion, comment), method: :delete, data: {confirm: "Are you sure?"} %>
-<hr>
+<div id="<%= dom_id(comment) %>">
+  <%= comment.body %>
+  <%= button_to "Delete", discussion_comment_path(@discussion, comment), method: :delete, data: {confirm: "Are you sure?"}, remote: true %>
+  <hr>
+</div>
